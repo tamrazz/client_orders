@@ -1,0 +1,11 @@
+/vendor/
+*.log
+.env
+/.vagrant
+/.fleet
+/.idea
+/.vscode
+/tmp
+*.pem
+.phpunit.result.cache
+.DS_Store
