@@ -2,22 +2,17 @@
 
 namespace Src\Controllers;
 
-use Src\Models\Model;
 use Src\Responses\Response;
 
-abstract class Controller implements ControllerInterface
+class Controller implements ControllerInterface
 {
-    private array $request;
-    private Model $model;
+    const VIEWS_PATH = __DIR__ . '/../../views/';
 
-    public function __construct(string $modelClass)
+    protected array $request;
+
+    public function __construct()
     {
         $this->request = $this->sanitizedRequest();
-        if ($modelClass instanceof Model) {
-            $this->model = new $modelClass();
-        } else {
-            throw new \Exception($modelClass . ' is not a allowe class');
-        }
     }
 
     /**
@@ -27,7 +22,9 @@ abstract class Controller implements ControllerInterface
      */
     public function index(): Response
     {
-        $data = $this->model->get($this->request);
+        $data = [
+            'view' => $this->getView(__FUNCTION__),
+        ];
         return Response::make(200, $data);
     }
 
@@ -38,8 +35,9 @@ abstract class Controller implements ControllerInterface
      */
     public function store(): Response
     {
-        $data = $this->model->create($this->request);
-        return Response::make(201, $data); 
+        // todo: need to be implement
+        $data = [];
+        return Response::make(405, $data); 
     }
 
     /**
@@ -49,17 +47,9 @@ abstract class Controller implements ControllerInterface
      */
     public function show(): Response
     {
-        if (empty($this?->request['id'])) {
-            return Response::make(400, [], 'Required parameter not specified: id');
-        }
-
-        $id = (int)$this->request['id'];
-        $data = $this->model->find($id);
-        if (empty($data)) {
-            return Response::make(404); // todo: Return 404
-        }
-        
-        return Response::make(200, $data); // todo: Return 200 with model $data
+        // todo: need to be implement
+        $data = [];
+        return Response::make(405, $data); 
     }
 
     /**
@@ -69,16 +59,9 @@ abstract class Controller implements ControllerInterface
      */
     public function update(): Response
     {
-        if (empty($this?->request['id'])) {
-            return Response::make(400, [], 'Required parameter not specified: id');
-        }
-        $id = (int)$this->request['id'];
-        $data = $this->model->update($id, $this->request);
-        if (empty($result)) {
-            return Response::make(422, [], 'Not updated');
-        }
-        
-        return Response::make(200, $data);
+        // todo: need to be implement
+        $data = [];
+        return Response::make(405, $data); 
     }
 
     /**
@@ -88,18 +71,20 @@ abstract class Controller implements ControllerInterface
      */
     public function destroy(): Response
     {
-        if (empty($this?->request['id'])) {
-            return Response::make(400, [], 'Required parameter not specified: id');
-        }
-        $id = (int)$this->request['id'];
-        return $this->model->delete($id);;
+        // todo: need to be implement
+        $data = [];
+        return Response::make(405, $data); 
     }
 
-    /**
-     * Removing some non-safety data
-     *
-     * @return array
-     */
-    abstract protected function sanitizedRequest(): array;
+    protected function getView(string $action): string
+    {
+        return static::VIEWS_PATH . "{$action}.view.html";
+    }
+
+    protected function sanitizedRequest(): array
+    {
+        // todo: make sanitazing and return only actual safe data
+        return filter_input_array(INPUT_GET);;
+    }
 }
 

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Тестовое задание - Милленниум</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        ul {
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .view-orders {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .create-order {
+            background-color: #28a745;
+        }
+
+        .create-order:hover {
+            background-color: #218838;
+        }
+
+        .full-width-button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Тестовое задание для ООО "Милленниум - командировочные решения"</h1>
+        <h2>Задание</h2>
+        <ul>
+            <li>Написать код, который реализует взаимодействие клиент-сервер. Получить из GET параметра ID клиентов и сделать выборку из базы, в которой будет ФИО клиента и его заказы с товарами, отсортированные по полю title в алфавитном порядке и по цене по убыванию. Сформировать из этих данных JSON и сделать вывод на HTML странице. Соединение между клиентом и сервером реализовывать необязательно. В ответ прислать PHP, JS, HTML, который получился. Код нужно написать без использования PHP фреймворков и сторонних библиотек. При обработке параметров и данных использовать все необходимые меры безопасности, как в реальных условиях.</li>
+            <li>Написать код PHP, в котором нужно от клиента принять данные по товарам и записывать их в таблицу products в виде нескольких записей.</li>
+        </ul>
+
+        <div class="actions">
+            <div class="view-orders">
+                <button onclick="viewOrders()">Просмотреть заказы</button>
+                <input type="text" id="userIds" placeholder="ID пользователей через запятую">
+            </div>
+            <button class="create-order full-width-button" onclick="createOrder()">Создать заказ</button>
+        </div>
+    </div>
+
+    <script>
+        function viewOrders() {
+            const userIds = document.getElementById('userIds').value;
+            const query = userIds ? `?uids=${encodeURIComponent(userIds)}` : '';
+            window.location.href = `/orders${query}`;
+        }
+
+        function createOrder() {
+            window.location.href = '/orders/new';
+        }
+    </script>
+</body>
+</html>

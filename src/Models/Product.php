@@ -6,14 +6,8 @@ class Product extends Model
 {
     public function create(array $data): ?array
     {
-        $query = $this->db->prepare(
-            "INSERT INTO products (title, price) VALUES (?, ?)"
-        );
-
-        $query->bind_param('sd', $data['title'] ?? '', $data['price'] ?? 0);
-        $result = $query->execute();
-        // todo: return Model data
-        return $result ? [] : null;
+        // todo: need to be implement
+        return null;
     }
 
     public function update(int $id, array $data): ?array

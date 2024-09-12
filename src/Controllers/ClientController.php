@@ -1,10 +1,11 @@
+
 <?php
 
 namespace Src\Controllers;
 
 use Src\Models\Client;
 
-class ClientController extends Controller
+class ClientController extends ModelController
 {
     public function __construct()
     {
@@ -17,4 +18,3 @@ class ClientController extends Controller
         return $_REQUEST;
     }
 }
-
