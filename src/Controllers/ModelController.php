@@ -11,10 +11,10 @@ abstract class ModelController extends Controller
 
     public function __construct(string $modelClass)
     {
-        if ($modelClass instanceof Model) {
+        if (is_a($modelClass, Model::class, true)) {
             $this->model = new $modelClass();
         } else {
-            throw new \Exception($modelClass . ' is not a allowe class');
+            throw new \Exception($modelClass . ' is not a allowed class');
         }
         parent::__construct();
     }
@@ -26,8 +26,10 @@ abstract class ModelController extends Controller
      */
     public function index(): Response
     {
-        $data = $this->model->get($this->request);
-        $data['view'] = $this->getView(__FUNCTION__);
+        $data = [
+            'data' => $this->model->get($this->request),
+            'view' => $this->getView(__FUNCTION__),
+        ];
         return Response::make(200, $data);
     }
 
@@ -97,9 +99,15 @@ abstract class ModelController extends Controller
         return $this->model->delete($id);;
     }
 
+    protected function getEntityName() {
+        $parts = explode('\\', $this->model::class);
+        $className = end($parts);
+        return strtolower($className);
+    }
+
     protected function getView(string $action): string
     {
-        return static::VIEWS_PATH . $this->model::class . "/{$action}.view.php";
+        return static::VIEWS_PATH . $this->getEntityName() . "/{$action}.view.php";
     }
 
 }

@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Src\Controllers;
@@ -19,42 +18,10 @@ class OrderController extends ModelController
         if (isset($request['uid'])) {
             $filtered['uid'] = (int)$request['uid'];
         }
+        if (isset($request['uids'])) {
+            $uids = explode(',', $request['uids']);
+            $filtered['uids'] = array_map('intval', $uids);
+        }
         return $filtered;
     }
-
-    // public function show()
-    // {
-    //     $request = $this->sanitizedRequest();
-    //     $clientId = $request['id'] ?? null;
-
-    //     if ($clientId) {
-    //         $client = $this->model->find($clientId);
-    //         $orders = $this->model->getOrders($clientId);
-
-    //         if ($client) {
-    //             // Render the view with client data and orders
-    //             include __DIR__ . '/../../views/client_view.php';
-    //         } else {
-    //             echo 'Client not found.';
-    //         }
-    //     } else {
-    //         echo 'Client ID is required.';
-    //     }
-    // }
-
-
-    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //     $db = Database::getInstance()->getConnection();
-        
-    //     $stmt = $db->prepare("INSERT INTO products (title, price) VALUES (?, ?)");
-        
-    //     $products = $_POST['products'];
-        
-    //     foreach ($products as $product) {
-    //         $stmt->bind_param('sd', $product['title'], $product['price']);
-    //         $stmt->execute();
-    //     }
-        
-    //     echo "Products added successfully.";
-    // }
 }

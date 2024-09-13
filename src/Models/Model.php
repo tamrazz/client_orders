@@ -9,7 +9,7 @@ abstract class Model implements ModelInterface
 {
     protected Mysql $db;
 
-    public function __construct(int $id)
+    public function __construct()
     {
         $this->db = Database::getInstance()->getConnection();
     }

@@ -13,10 +13,10 @@ class Router
         $this->routes = [
             'GET' => [
                 '/' => 'Controller@index',
-                'orders' => 'OrderController@get',
+                '/orders' => 'OrderController@index',
             ],
             'POST' => [
-                'orders/new' => 'OrderController@create',
+                '/orders/new' => 'OrderController@create',
             ],
         ];
     }
