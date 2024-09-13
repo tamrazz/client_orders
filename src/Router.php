@@ -14,9 +14,11 @@ class Router
             'GET' => [
                 '/' => 'Controller@index',
                 '/orders' => 'OrderController@index',
+                '/products/new' => 'ProductController@create',
+                '/products' => 'ProductController@index',
             ],
             'POST' => [
-                '/orders/new' => 'OrderController@create',
+                '/products' => 'ProductController@massStore',
             ],
         ];
     }

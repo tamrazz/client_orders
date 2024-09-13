@@ -14,6 +14,13 @@ interface ControllerInterface
     public function index(): Response;
 
     /**
+     * Show form to create model
+     *
+     * @return array
+     */
+    public function create(): Response;
+
+    /**
      * Create model
      *
      * @return string

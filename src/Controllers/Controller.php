@@ -29,6 +29,19 @@ class Controller implements ControllerInterface
     }
 
     /**
+     * Show form to create model
+     *
+     * @return array
+     */
+    public function create(): Response
+    {
+        $data = [
+            'view' => $this->getView(__FUNCTION__),
+        ];
+        return Response::make(200, $data);
+    }
+
+    /**
      * Create model
      *
      * @return string

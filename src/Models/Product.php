@@ -10,7 +10,9 @@ class Product extends Model
             "INSERT INTO products (title, price) VALUES (?, ?)"
         );
 
-        $query->bind_param('sd', $data['title'] ?? '', $data['price'] ?? 0);
+        $title = $data['title'] ?? '';
+        $price = $data['price'] ?? 0.00;
+        $query->bind_param('sd', $title, $price);
         $result = $query->execute();
         // todo: return Model data
         return $result ? [] : null;
