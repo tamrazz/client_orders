@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Src;
@@ -9,7 +8,6 @@ class Router
 {
     private array $routes = [];
     private static $instance = null;
-
 
     private function __construct() {
         $this->routes = [

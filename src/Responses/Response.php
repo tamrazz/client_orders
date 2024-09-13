@@ -42,18 +42,20 @@ class Response
         return (bool)$this->success;
     }
 
-    public function render()
+    public function render(): void
     {
         $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? '';
 
         if (strpos($acceptHeader, 'application/json') !== false) {
-            return $this->toJson();
+            $render = $this->toJson();
+        } else {
+            $render = $this->toHtml();
         }
 
-        return $this->toHtml();
+        echo $render;
     }
 
-    public function toJson()
+    public function toJson(): string
     {
         header('Content-Type: application/json');
         $data = [
@@ -64,16 +66,18 @@ class Response
         return json_encode($data);
     }
 
-    public function toHtml()
+    public function toHtml(): string
     {
         $viewPath = $this->data['view'] ?? Controller::VIEWS_PATH . '404.html';
         if (file_exists($viewPath)) {
+            http_response_code($this->code);
             $data = $this->data;
             ob_start();
             include $viewPath;
             return ob_get_clean();
         }
-        return 'View not found';
+        http_response_code(503);
+        return 'View not found' . PHP_EOL . $viewPath;
     }
 
     protected static function codeToMsg(int $code): string

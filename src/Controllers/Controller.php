@@ -78,13 +78,13 @@ class Controller implements ControllerInterface
 
     protected function getView(string $action): string
     {
-        return static::VIEWS_PATH . "{$action}.view.html";
+        return static::VIEWS_PATH . "{$action}.html";
     }
 
     protected function sanitizedRequest(): array
     {
         // todo: make sanitazing and return only actual safe data
-        return filter_input_array(INPUT_GET);;
+        return (array)filter_input_array(INPUT_GET);
     }
 }
 
